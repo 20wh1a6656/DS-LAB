@@ -1,0 +1,26 @@
+#include<stdio.h>
+
+int main(){
+
+int a[10], i, n, elem;
+
+printf("How many elements:\n");
+scanf("%d", &n);
+
+for(i = 0; i < n; i++){
+printf("Enter the elements:\n");
+scanf("%d", &a[i]);
+}
+
+printf("Enter the element to be searched:\n");
+scanf("%d", &elem);
+
+for(i = 0; i < n; i++) {
+if(a[i] == elem) {
+printf("the element is found at the position %d", i);
+}
+else {
+printf("Element is not found");
+}
+}
+}
