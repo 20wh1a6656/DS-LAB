@@ -1,0 +1,341 @@
+#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+struct node{
+int data,ele,pos;
+struct node*prev;
+struct node*next;
+};
+struct node *head = NULL, *tail = NULL, *cur, *temp, *temp1;
+struct node *create(){
+int n;
+printf("Enter no of nodes :");
+scanf("%d",&n);
+
+
+while(n--){
+cur = (struct node*)malloc(sizeof(struct node));
+scanf("%d",&(cur->data));
+cur->prev = NULL;
+cur->next = NULL;
+if (head == NULL){
+head = cur;
+}
+else{
+temp = head;
+while(temp->next!=NULL)
+temp = temp->next;
+tail=temp->next = cur;
+cur->prev =temp;
+}
+}
+return head;
+}
+struct node *insert_begin(int ele){
+cur = (struct node*)malloc(sizeof(struct node));
+cur->data = ele;
+cur->next = head;
+head->prev = cur;
+cur->prev = NULL;
+head = cur;
+return head;
+}
+struct node *insert_end(int ele){
+cur = (struct node*)malloc(sizeof(struct node));
+cur->data = ele;
+cur->next = NULL;
+tail->next = cur;
+cur->prev = tail;
+tail = cur;
+return head;
+}
+struct node *insert_pos(int pos,int ele){
+int c=1;
+cur = (struct node*)malloc(sizeof(struct node));
+cur->data = ele;
+temp = head;
+while(c<pos){
+temp1 = temp;
+temp = temp->next;
+c++;
+}
+
+
+temp1->next = cur;
+cur ->prev = temp1;
+cur->next = temp;
+temp->prev = cur;
+return head;
+}
+struct node *delete_begin(struct node *head){
+temp = head;
+head = temp-&gt;next;
+temp-&gt;prev = NULL;
+printf(&quot;deleted element %d&quot;,temp-&gt;data);
+free(temp);
+return head;
+}
+struct node *delete_end(struct node *tail){
+temp = tail;
+tail = tail-&gt;prev;
+tail-&gt;next = NULL;
+printf(&quot;deleted element %d&quot;,temp-&gt;data);
+free(temp);
+return tail;
+}
+struct node *delete_pos(struct node *head,int pos){
+int c = 1;
+temp = head;
+while(c<pos){
+temp1 = temp;
+temp = temp-&gt;next;
+c++;
+}
+temp1-&gt;next = temp-&gt;next;
+temp-&gt;next-&gt;prev = temp1;
+printf(&quot;deleted element %d&quot;,temp-&gt;data);
+free(temp);
+return head;
+}
+void display(struct node* head){
+temp = head;
+while(temp != NULL){
+printf("%d->",temp->data);
+temp = temp->next;
+}
+}
+
+int main(){
+
+
+int ch,ele,pos,key;
+while(1){
+printf(&quot;\n 1-create\n 2-insert at begin\n 3-insert at end\n 4-
+insert at pos\n 5-delete at begin\n 6-delete at end\n 7-delete at pos\n
+8-display\n 9-exit\n&quot;);
+printf(&quot;\nEnter your choice : &quot;);
+scanf(&quot;%d&quot;,&amp;ch);
+switch(ch){
+case 1 : head = create();
+break;
+case 2 : scanf(&quot;%d&quot;,&amp;ele);
+head = insert_begin(ele);
+break;
+case 3 : scanf(&quot;%d&quot;,&amp;ele);
+head = insert_end(ele);
+break;
+case 4 : scanf(&quot;%d&quot;,&amp;pos);
+scanf(&quot;%d&quot;,&amp;ele);
+head = insert_pos(pos,ele);
+break;
+case 5 : head = delete_begin(head);
+break;
+case 6 : tail = delete_end(tail);
+break;
+case 7 : scanf(&quot;%d&quot;,&amp;pos);
+head = delete_pos(head,pos);
+break;
+case 8 : display(head);
+break;
+case 9 : exit(0);
+}
+}
+}
+
+Output:
+1-create
+2-insert at begin
+3-insert at end
+4-insert at pos
+5-delete at begin
+6-delete at end
+7-delete at pos
+8-display
+9-exit
+
+
+Enter your choice : 1
+Enter no of nodes :2
+5
+7
+
+1-create
+2-insert at begin
+3-insert at end
+4-insert at pos
+5-delete at begin
+6-delete at end
+7-delete at pos
+8-display
+9-exit
+
+Enter your choice : 8
+5-&gt;7-&gt;
+1-create
+2-insert at begin
+3-insert at end
+4-insert at pos
+5-delete at begin
+6-delete at end
+7-delete at pos
+8-display
+9-exit
+
+Enter your choice : 2
+3
+
+1-create
+2-insert at begin
+3-insert at end
+4-insert at pos
+5-delete at begin
+6-delete at end
+7-delete at pos
+8-display
+9-exit
+
+Enter your choice : 8
+
+
+3-&gt;5-&gt;7-&gt;
+1-create
+2-insert at begin
+3-insert at end
+4-insert at pos
+5-delete at begin
+6-delete at end
+7-delete at pos
+8-display
+9-exit
+
+Enter your choice : 3
+9
+
+1-create
+2-insert at begin
+3-insert at end
+4-insert at pos
+5-delete at begin
+6-delete at end
+7-delete at pos
+8-display
+9-exit
+
+Enter your choice : 8
+3-&gt;5-&gt;7-&gt;9-&gt;
+1-create
+2-insert at begin
+3-insert at end
+4-insert at pos
+5-delete at begin
+6-delete at end
+7-delete at pos
+8-display
+9-exit
+
+Enter your choice : 4
+2
+1
+
+1-create
+
+
+2-insert at begin
+3-insert at end
+4-insert at pos
+5-delete at begin
+6-delete at end
+7-delete at pos
+8-display
+9-exit
+
+Enter your choice : 8
+3-&gt;1-&gt;5-&gt;7-&gt;9-&gt;
+1-create
+2-insert at begin
+3-insert at end
+4-insert at pos
+5-delete at begin
+6-delete at end
+7-delete at pos
+8-display
+9-exit
+
+Enter your choice : 5
+deleted element 3
+1-create
+2-insert at begin
+3-insert at end
+4-insert at pos
+5-delete at begin
+6-delete at end
+7-delete at pos
+8-display
+9-exit
+
+Enter your choice : 8
+1-&gt;5-&gt;7-&gt;9-&gt;
+1-create
+2-insert at begin
+3-insert at end
+4-insert at pos
+5-delete at begin
+6-delete at end
+7-delete at pos
+8-display
+
+
+9-exit
+
+Enter your choice : 6
+deleted element 9
+1-create
+2-insert at begin
+3-insert at end
+4-insert at pos
+5-delete at begin
+6-delete at end
+7-delete at pos
+8-display
+9-exit
+
+Enter your choice : 8
+1-&gt;5-&gt;7-&gt;
+1-create
+2-insert at begin
+3-insert at end
+4-insert at pos
+5-delete at begin
+6-delete at end
+7-delete at pos
+8-display
+9-exit
+
+Enter your choice : 7
+2
+deleted element 5
+1-create
+2-insert at begin
+3-insert at end
+4-insert at pos
+5-delete at begin
+6-delete at end
+7-delete at pos
+8-display
+9-exit
+
+Enter your choice : 8
+1-&gt;7-&gt;
+1-create
+
+
+
+2-insert at begin
+3-insert at end
+4-insert at pos
+5-delete at begin
+6-delete at end
+7-delete at pos
+8-display
+9-exit
+
+Enter your choice : 9
